@@ -1,10 +1,10 @@
-# Github, VSTS and Kubernetes
+# Recipe 1: Github, VSTS and Kubernetes
 
-CI/CD pipeline between Github, Microsoft's Visual Studio for Teams (VSTS) and Kubernetes.
+CI/CD pipeline between Github, Microsoft's Visual Studio for Teams \(VSTS\) and Kubernetes.
 
 ## Audience
 
-The target audience for this tutorial is anyone looking for a Continuous Integration/Continous Delivery pipeline solution using Github, VSTS and Kubernetes as the deployment platform. This
+The target audience for this tutorial is anyone looking for a Continuous Integration/Continous Delivery pipeline solution using Github, VSTS and Kubernetes as the deployment platform. This  
 is a step-by-step approach with many details on how things get connected together.
 
 ## Prerequisites
@@ -13,33 +13,33 @@ For this pipeline, you will need:
 
 * A Github account
 * An Azure account
-* A Visual Studio for Teams (VSTS) account at visualstudio.com
+* A Visual Studio for Teams \(VSTS\) account at visualstudio.com
 
 ## Solution Details
 
-This guide will walk you through the process of creating a Continuous Integration/Continous Delivery pipeline (CI/CD pipeline).
+This guide will walk you through the process of creating a Continuous Integration/Continous Delivery pipeline \(CI/CD pipeline\).
 
 ## Table of Contents
 
 ### Understanding the components of our infrastructure
 
-| Components | Role | Notes
-| ---| ---| ---|
-| Github | Source code Version Control System | Our Dockerfile and the Kubernetes services and deployment file will also be hosted here.
-| VSTS | - Build docker images, Push docker images to the repo and deploy to Kubernetes | Azure Container Registry will the the repository for the images. You could also change this here and use dockerhub. Kubernetes will run on Azure Container Services (AKS)
+| Components | Role | Notes |
+| --- | --- | --- |
+| Github | Source code Version Control System | Our Dockerfile and the Kubernetes services and deployment file will also be hosted here. |
+| VSTS | - Build docker images, Push docker images to the repo and deploy to Kubernetes | Azure Container Registry will the the repository for the images. You could also change this here and use dockerhub. Kubernetes will run on Azure Container Services \(AKS\) |
 
 Our flow will be:
 
 1. Code is pushed to Github
-1. A Webhook is sent from Github to VSTS.
-1. Based on the reception of the Webhook, VSTS will fetch the `Dockerfile` from the repository on Github and run a build image action.
-1. A new Docker image of our code will be pushed to our Azure Container Registry repository.
-1. VSTS will deploy the our workload based on the instruction from the `azure_visualizer-deployment.yml` file found under our repository.
-1. Finaly, VSTS will will deploy a services object following the `azure_visualizer-svc.yml` file.
+2. A Webhook is sent from Github to VSTS.
+3. Based on the reception of the Webhook, VSTS will fetch the `Dockerfile` from the repository on Github and run a build image action.
+4. A new Docker image of our code will be pushed to our Azure Container Registry repository.
+5. VSTS will deploy the our workload based on the instruction from the `azure_visualizer-deployment.yml` file found under our repository.
+6. Finaly, VSTS will will deploy a services object following the `azure_visualizer-svc.yml` file.
 
 ## Creating the Continuous Integration
 
-In the first part of this tutorial, we will create the mechanism for the Continous Integration. Essentially, our code will live on Github and whenever there's a change to this code (e.g.: a developer commits changes to the repo) we will setup a Webhook that will trigger an action, informing VSTS of these changes. Once informed by Github, VSTS will act based on the rules we will setup soon.
+In the first part of this tutorial, we will create the mechanism for the Continous Integration. Essentially, our code will live on Github and whenever there's a change to this code \(e.g.: a developer commits changes to the repo\) we will setup a Webhook that will trigger an action, informing VSTS of these changes. Once informed by Github, VSTS will act based on the rules we will setup soon.
 
 ## Create an Azure Container Repository
 
@@ -59,7 +59,7 @@ az acr create --name CICDpipeline --resource-group myCICDpipeline --sku Basic
 
 ## Configuring Github
 
-For this example, fork the code available at: [https://github.com/dcasati/azure_visualizer.git](https://github.com/dcasati/azure_visualizer.git)
+For this example, fork the code available at: [https://github.com/dcasati/azure\_visualizer.git](https://github.com/dcasati/azure_visualizer.git)
 
 With this new fork, let's go ahead the enable a Webhook
 
@@ -140,10 +140,10 @@ Click on the plus sign in front of the `Phase 2` and select to add a new task. F
 Name this first task `Create Kubernetes Deployment`,
 
 | Item | Value |
-| --- | ---|
+| --- | --- |
 | Display name | Create Kubernetes Deployment |
-| Kubernetes Service Connection | Paste your KUBECONFIG here* |
-| Container Registry type | Azure Container Registry|
+| Kubernetes Service Connection | Paste your KUBECONFIG here\* |
+| Container Registry type | Azure Container Registry |
 
 ### Getting the KUBECONFIG from AKS
 
@@ -153,9 +153,9 @@ You will need to retrieve your KUBECONFIG for the `Kubernetes Services Connectio
 az aks get-credentials -g myResourceGroup -n myCluster -f myk8s_cluster.conf
 ```
 
- ![phase 2](images/vsts-15.png)
+![phase 2](images/vsts-15.png)
 
-Scroll down the `Commands` section and select **create** under `Command` dropdown menu. Select the `Use Configuration files` option. Then under the  `Configuration File` click on the button button to select the deployment file (`azure_visualizer-deployment.yml` in the picture).
+Scroll down the `Commands` section and select **create** under `Command` dropdown menu. Select the `Use Configuration files` option. Then under the  `Configuration File` click on the button button to select the deployment file \(`azure_visualizer-deployment.yml` in the picture\).
 
 > Note: This file is hosted on your Github repository.
 
@@ -166,19 +166,19 @@ Click on `Save and Queue` then on `Save`.
 Repeat the previous step for the the next Kubernetes task with the following values:
 
 | Item | Value |
-| --- | ---|
+| --- | --- |
 | Display name | Create Kubernetes Service |
-| Kubernetes Service Connection | |
-| Container Registry type | Azure Container Registry|
-| Azure Container Registry | casatix* |
+| Kubernetes Service Connection |  |
+| Container Registry type | Azure Container Registry |
+| Azure Container Registry | casatix\* |
 
 > \* Modify this value to reflect your setup.
 
-Commands
-| Item | Value |
-| ---| ---|
-| Command | create |
-|Configuration File |azure_visualizer-svc.yml|
+Commands  
+\| Item \| Value \|  
+\| ---\| ---\|  
+\| Command \| create \|  
+\|Configuration File \|azure\_visualizer-svc.yml\|
 
 Click on `Save and Queue` then on `Save`.
 
@@ -191,4 +191,6 @@ $ kubectl get pods -l k8s-app=azure-visualizer
 NAME                                READY     STATUS    RESTARTS   AGE
 azure-visualizer-1640327816-t8f3g   1/1       Running   0          10d
 ```
+
+
 
