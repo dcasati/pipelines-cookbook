@@ -67,7 +67,9 @@ With this new fork, let's go ahead the enable a Webhook
 
 ## Configuring VSTS
 
-### Create a new Project
+1. Visit [VSTS](app.vssps.visualstudio.com/)
+2. Sign in or create an account
+3. Click an account (or use an existing one) and then create a new project
 
 ### Setup the Continous Integration on VSTS
 
