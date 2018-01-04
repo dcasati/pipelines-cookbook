@@ -127,8 +127,6 @@ Click on `Save and queue` then on `Save`.
 
 ### Setup the Continous Delivery on VSTS
 
-XXX
-
 Name this as `Phase 2 - Continous Delivery`
 
 ![phase 2](images/vsts-13.png)
