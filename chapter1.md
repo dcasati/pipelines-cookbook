@@ -174,11 +174,12 @@ Repeat the previous step for the the next Kubernetes task with the following val
 
 > \* Modify this value to reflect your setup.
 
-Commands  
-\| Item \| Value \|  
-\| ---\| ---\|  
-\| Command \| create \|  
-\|Configuration File \|azure\_visualizer-svc.yml\|
+Commands
+
+| Item | Value |  
+| --- | --- |  
+| Command | create |  
+| Configuration File | azure_visualizer-svc.yml |
 
 Click on `Save and Queue` then on `Save`.
 
