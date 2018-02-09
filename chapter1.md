@@ -23,10 +23,11 @@ This guide will walk you through the process of creating a Continuous Integratio
 
 ### Understanding the components of our infrastructure
 
-| Components | Role | Notes |
-| --- | --- | --- |
-| Github | Source code Version Control System | Our Dockerfile and the Kubernetes services and deployment file will also be hosted here. |
-| VSTS | - Build docker images, Push docker images to the repo and deploy to Kubernetes | Azure Container Registry will the the repository for the images. You could also change this here and use dockerhub. Kubernetes will run on Azure Container Services \(AKS\) |
+| Components | Role | Notes 
+| --- | --- | --- 
+| Github | Source code Version Control System | Our Dockerfile and the Kubernetes services and deployment file will also be hosted here. 
+| VSTS | Build docker images, Push docker images to the repo and deploy to Kubernetes | Azure Container Registry will the the repository for the images. You could also change this here and use dockerhub.  
+| Kubernetes | Run the application | Kubernetes will run on Azure Container Services \(AKS\)
 
 Our flow will be:
 
