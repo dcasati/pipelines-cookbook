@@ -114,7 +114,7 @@ With the initial connection to Github in place we will now configure the compone
 
     In my case, you can see that the registry `casatix` was choosen and that the `Docker File` was set to `/**Dockerfile`. Click on `Save and queue` then on `Save`. Select **Build image** under the `Action` section.
 
-    > Note: `/**Dockerfile` should correspond to the Dockerfile on your Github repo. If you have forked our code example, than you are good to go. If you are adapting this tutorial to your use caase, make sure that you map this option correctly otherwise you will not be able to build an image.
+    > Note: `/**Dockerfile` should correspond to the Dockerfile on your Github repo. If you have forked our code example, than you are good to go. If you are adapting this tutorial to your use case, make sure that you map this option correctly otherwise you will not be able to build an image.
 
     ![choose the dockerfile](images/vsts-9.png)
 
