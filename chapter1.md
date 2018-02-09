@@ -11,9 +11,9 @@ is a step-by-step approach with many details on how things get connected togethe
 
 For this pipeline, you will need:
 
-* A Github account
-* An Azure account
-* A Visual Studio for Teams \(VSTS\) account at visualstudio.com
+* A [Github](https://github.com/) account
+* An [Azure](https://azure.microsoft.com/) account
+* A Visual Studio for Teams (VSTS) account at [visualstudio.com](https://www.visualstudio.com)
 
 ## Solution Details
 
