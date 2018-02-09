@@ -38,23 +38,144 @@ Our flow will be:
 1. VSTS will deploy the our workload based on the instruction from the `azure_visualizer-deployment.yml` file found under our repository.
 1. Finaly, VSTS will will deploy a services object following the `azure_visualizer-svc.yml` file.
 
+## Basic building blocks
+
+In order to deploy the pipeline, we need to have in place a few components. The following steps will setup Kubernetes and the Azure Container Registry.
+
+## Basic setup - Do this before proceeding
+
+The first thing you should do is to clone this repo as most of the examples here will do relative reference to files.
+
+```bash
+git clone https://github.com/dcasati/k8s-training.git
+```
+
+With that out of the way, we let's define some global variables. They will be used throughout the labs.
+
+1. Create the variables file
+
+    ```bash
+    # The name of our demo
+    export demoname=k8s-demo
+    cat << EOF > variables.rc
+   
+    # Enter here the email attached to your Azure subscription
+    export myEmail=YOUR_EMAIL_HERE
+   
+    # The data center and resource name for your resources
+    export resourcegroupname=${demoname}-rg
+    
+    # select a region to deploy your resources
+    export location=eastus
+    
+    # Azure Container Registry
+    export acrname=${demoname/-/}acr${RANDOM}
+
+    # Kubernetes
+    export clustername=$demoname-cluster
+    EOF
+    ```
+
+1. source it to load the values
+
+    ```bash
+   source variables.rc
+    ```
+1. With these values, we can now create a Resource Group that will be used during our exercises.
+
+    ```bash
+    az group create \
+        --name $demoname \
+        --resource-group $resourcegroupname \
+        --location $location
+    ```
+
+### Setting up Kubernetes
+
+Here we will see the steps needed to setup a Kubernetes cluster on Azure.
+
+> NOTE: At the time of this writing, Azure Container Services is in preview so before you can use it you will have to add that feature to your subscription with the following command:
+    
+```bash
+az provider register -n Microsoft.ContainerService
+```
+
+## Procedure
+
+1. Create an AKS instance
+
+    ```bash
+    az aks create \
+        --resource-group $resourcegroupname \
+        --name $clustername \
+        --node-count 2 \
+        --generate-ssh-keys \
+        --kubernetes-version 1.8.1
+    ```
+    After a few minutes you should have you cluster up and running.
+
+1. To install kubectl
+
+    ```bash
+    az aks install-cli
+    ```
+    > NOTE: This procedure will work on MacOS, Linux and Windows.
+
+1. Run the following az command:
+
+    ```bash
+    az aks get-credentials \
+    --resource-group $resourcegroupname \
+    --name $clustername
+    ```
+    This will get the `KUBECONFIG` so you can later use with kubectl
+
+1. To test your new setup, let's get the information about the PODs and Nodes.
+
+    ```bash
+    kubectl get nodes
+    ```
+### Create a container repository on Azure Container Registry
+
+In this section, we will setup our private registry on Azure Container Registry.
+
+1. Create an ACR instance
+
+    ```bash
+    az acr create \
+        --resource-group $resourcegroupname \
+        --name $acrname \
+        --sku Basic
+    ```
+
+1. Save the value of the `loginServer` to a variable of the same name ($loginServer).
+    
+    ```bash
+    loginServer=$(az acr list --resource-group $resourcegroupname --query "[].{acrLoginServer:loginServer}" --output tsv)
+    ```
+
+1. Enable admin access to ACR
+
+    ```bash
+    az acr update --name $acrname --admin-enabled true
+    ```
+1. Retrieve the credentials for the registry
+
+    ```bash
+    acrUsername=$(az acr credential show --resource-group $resourcegroupname --name $acrname --query username -o tsv)
+    acrPassword=$(az acr credential show --resource-group $resourcegroupname --name $acrname --query passwords -o tsv | awk '/password\t/{print $2}')
+    ```
+1. Create the Secret to hold the ACR credentials
+    ```bash
+    kubectl create secret docker-registry myregistrykey \
+        --docker-server $loginServer \
+        --docker-username $acrUsername \
+        --docker-password $acrPassword  \
+        --docker-email $myEmail
+    ```
 ## Creating the Continuous Integration
 
 In the first part of this tutorial, we will create the mechanism for the Continuous Integration. Essentially, our code will live on Github and whenever there's a change to this code \(e.g.: a developer commits changes to the repo\) we will setup a Webhook that will trigger an action, informing VSTS of these changes. Once informed by Github, VSTS will act based on the rules we will setup soon.
-
-### Create a container repository on Azure Container Registry
-
-Create a resource group
-
-```bash
-az group create --location westus2 --name myCICDpipeline
-```
-
-then proceed by creating your new container repository
-
-```bash
-az acr create --name CICDpipeline --resource-group myCICDpipeline --sku Basic
-```
 
 ## Configuring Github
 
@@ -155,7 +276,10 @@ Name this as `Phase 2 - Continuous Delivery`
 You will need to retrieve your KUBECONFIG for the `Kubernetes Services Connection`. To get this file, execute the following:
 
 ```bash
-az aks get-credentials -g myResourceGroup -n myCluster -f myk8s_cluster.conf
+az aks get-credentials \
+    -g $resourcegroupname \
+    -n $clustername \
+    -f myk8s_cluster.conf
 ```
 
 ![phase 2](images/vsts-15.png)
