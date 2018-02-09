@@ -4,7 +4,7 @@ CI/CD pipeline between Github, Microsoft's Visual Studio for Teams \(VSTS\) and 
 
 ## Audience
 
-The target audience for this tutorial is anyone looking for a Continuous Integration/Continous Delivery pipeline solution using Github, VSTS and Kubernetes as the deployment platform. This  
+The target audience for this tutorial is anyone looking for a Continuous Integration/Continuous Delivery pipeline solution using Github, VSTS and Kubernetes as the deployment platform. This  
 is a step-by-step approach with many details on how things get connected together.
 
 ## Prerequisites
@@ -17,7 +17,7 @@ For this pipeline, you will need:
 
 ## Solution Details
 
-This guide will walk you through the process of creating a Continuous Integration/Continous Delivery pipeline \(CI/CD pipeline\).
+This guide will walk you through the process of creating a Continuous Integration/Continuous Delivery pipeline \(CI/CD pipeline\).
 
 ## Table of Contents
 
@@ -40,7 +40,7 @@ Our flow will be:
 
 ## Creating the Continuous Integration
 
-In the first part of this tutorial, we will create the mechanism for the Continous Integration. Essentially, our code will live on Github and whenever there's a change to this code \(e.g.: a developer commits changes to the repo\) we will setup a Webhook that will trigger an action, informing VSTS of these changes. Once informed by Github, VSTS will act based on the rules we will setup soon.
+In the first part of this tutorial, we will create the mechanism for the Continuous Integration. Essentially, our code will live on Github and whenever there's a change to this code \(e.g.: a developer commits changes to the repo\) we will setup a Webhook that will trigger an action, informing VSTS of these changes. Once informed by Github, VSTS will act based on the rules we will setup soon.
 
 ## Create an Azure Container Repository
 
@@ -124,9 +124,9 @@ For this example, fork the code available at: [https://github.com/dcasati/azure\
 
 1. Click on `Save and queue` then on `Save`.
 
-### Setup the Continous Delivery on VSTS
+### Setup the Continuous Delivery on VSTS
 
-Name this as `Phase 2 - Continous Delivery`
+Name this as `Phase 2 - Continuous Delivery`
 
 ![phase 2](images/vsts-13.png)
 
