@@ -42,9 +42,7 @@ Our flow will be:
 
 In the first part of this tutorial, we will create the mechanism for the Continuous Integration. Essentially, our code will live on Github and whenever there's a change to this code \(e.g.: a developer commits changes to the repo\) we will setup a Webhook that will trigger an action, informing VSTS of these changes. Once informed by Github, VSTS will act based on the rules we will setup soon.
 
-## Create an Azure Container Repository
-
-### Create a container repository on Azure
+### Create a container repository on Azure Container Registry
 
 Create a resource group
 
