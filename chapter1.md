@@ -84,13 +84,21 @@ For this example, fork the code available at: [https://github.com/dcasati/azure\
 
     ![configure the Github source](images/vsts-4.png)
 
-1. Click on the `Save and queue` icon and then select `Save`. Next, on the left side of the screen, click on `Process`. Name the Process with something meaningful such as `azure_visualizer_pipeline-CI`. Under the `Agent queue`, select **Hosted Linux Preview**.
+1. Click on the `Save and queue` icon and then select `Save`.
 
-    ![select a Linux host](images/vsts-LinuxHost.png)
+1. Click on the `Triggers` tab, then select your Github repository on the left side of the screen. Finally, click on the `Enable Continuos Integration` box on the right side.
 
-1. With the initial connection to Github in place we will now configure the components that will build and publish the Docker image.
+    ![Enable CI](images/vsts-ci.png)
+
+1. Click on the `Save and queue` icon and then select `Save`.
+
+With the initial connection to Github in place we will now configure the components that will build and publish the Docker image.
 
 ### Setting up the build process for the Docker image
+
+1. Next, on the left side of the screen, click on `Process`. Name the Process with something meaningful such as `azure_visualizer_pipeline-CI`. Under the `Agent queue`, select **Hosted Linux Preview**.
+
+    ![select a Linux host](images/vsts-LinuxHost.png)
 
 1. Add a task to the phase by clicking on the plus sign.
 
