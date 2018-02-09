@@ -68,7 +68,7 @@ For this example, fork the code available at: [https://github.com/dcasati/azure\
 1. Sign in or create an account
 1. Click an account (or use an existing one) and then create a new project
 
-### Setup the Continuous Integration on VSTS
+### Setting up the Continuous Integration on VSTS
 
 1. Click on the Build button then on **+New definition**
 
@@ -91,6 +91,8 @@ For this example, fork the code available at: [https://github.com/dcasati/azure\
     ![select a Linux host](images/vsts-LinuxHost.png)
 
 1. With the initial connection to Github in place we will now configure the components that will build and publish the Docker image.
+
+### Setting up the build process for the Docker image
 
 1. Add a task to the phase by clicking on the plus sign.
 
@@ -124,7 +126,7 @@ For this example, fork the code available at: [https://github.com/dcasati/azure\
 
 1. Click on `Save and queue` then on `Save`.
 
-### Setup the Continuous Delivery on VSTS
+### Setting up the Continuous Delivery on VSTS
 
 Name this as `Phase 2 - Continuous Delivery`
 
