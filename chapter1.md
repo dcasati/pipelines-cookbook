@@ -168,7 +168,7 @@ Repeat the previous step for the the next Kubernetes task with the following val
 | Item | Value |
 | --- | --- |
 | Display name | Create Kubernetes Service |
-| Kubernetes Service Connection |  |
+| Kubernetes Service Connection | Select the Kubernetes connection from the dropdown menu |
 | Container Registry type | Azure Container Registry |
 | Azure Container Registry | casatix\* |
 
