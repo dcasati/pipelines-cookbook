@@ -2,6 +2,8 @@
 
 CI/CD pipeline between Github, Microsoft's Visual Studio for Teams \(VSTS\) and Kubernetes.
 
+![CI/CD Architecture](images/cicd-architecture.png)
+
 ## Audience
 
 The target audience for this tutorial is anyone looking for a Continuous Integration/Continuous Delivery pipeline solution using Github, VSTS and Kubernetes as the deployment platform. This  
