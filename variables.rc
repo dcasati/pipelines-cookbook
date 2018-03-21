@@ -1,0 +1,15 @@
+
+# Enter here the email attached to your Azure subscription
+export myEmail=dicasati@microsoft.com
+
+# The data center and resource name for your resources
+export resourcegroupname=k8s-demo-rg
+
+# select a region to deploy your resources
+export location=eastus
+
+# Azure Container Registry
+export acrname=k8sdemoacr21836
+
+# Kubernetes
+export clustername=k8s-demo-cluster
